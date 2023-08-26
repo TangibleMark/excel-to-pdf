@@ -1,0 +1,6 @@
+Project Spec
+
+Take a row from excel and use the data there to fill in the form on the PDF
+
+Solution - Use Python libraries to do this.
+
