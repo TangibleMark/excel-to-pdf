@@ -1,20 +1,12 @@
-import openpyxl
-from PyPDF2 import PdfReader, PdfWriter
-from PyPDF2.generic import BooleanObject, NameObject, IndirectObject
 import tkinter
+from ExcelReader import ExcelReader
+from PdfFormFiller import PdfFormFiller
 
+# main
+excel_reader = ExcelReader("suppleance_records_good.xlsx")
 
-
-
-# PDF
-# Get fields
-# Open the original PDF
-
-
-
-
-
-
-
- #16439
-
+test = PdfFormFiller('REQUEST_FOR_SUPPLEANCE_FORM_.pdf', 'test.pdf')
+test.write_department()
+test.write_sub_emp_number('11111')
+test.write_name_of_replacement('mark')
+# excel_reader.get_rows()
