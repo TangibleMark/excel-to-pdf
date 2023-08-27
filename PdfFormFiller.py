@@ -5,61 +5,23 @@ class PdfFormFiller:
     def __init__(self, old_pdf_name, new_pdf_name):
         self.old_pdf_name = old_pdf_name
         self.new_pdf_name = new_pdf_name
+        self.writer = PdfWriter()
 
         reader = PdfReader(self.old_pdf_name)
-        writer = PdfWriter()
+
         # Get the first page from the pdf
         page = reader.pages[0]
 
         # Duplicate that page onto a new pdf
-        writer.add_page(page)
-
-        # write "output" to PyPDF2-output.pdf
-        with open(f"{self.new_pdf_name}.pdf", "wb") as output_stream:
-            writer.write(output_stream)
-
-    # def set_need_appearances_writer(writer):
-    #     # See 12.7.2 and 7.7.2 for more information:
-    #     # http://www.adobe.com/content/dam/acom/en/devnet/acrobat/
-    #     #     pdfs/PDF32000_2008.pdf
-    #     try:
-    #         catalog = writer._root_object
-    #         # get the AcroForm tree and add "/NeedAppearances attribute
-    #         if "/AcroForm" not in catalog:
-    #             writer._root_object.update(
-    #                 {
-    #                     NameObject("/AcroForm"): IndirectObject(
-    #                         len(writer._objects), 0, writer
-    #                     )
-    #                 }
-    #             )
-    #
-    #         need_appearances = NameObject("/NeedAppearances")
-    #         writer._root_object["/AcroForm"][
-    #             need_appearances] = BooleanObject(True)
-    #         return writer
-    #
-    #     except Exception as e:
-    #         print("set_need_appearances_writer() catch : ", repr(e))
-    #         return writer
+        self.writer.add_page(page)
 
     def change_field(self, field_name, field_value):
-        reader = PdfReader(self.old_pdf_name, strict=False)
-
-
-        writer = PdfWriter()
-        writer.add_page(reader.pages[0])
-
-        writer.update_page_form_field_values(
-            writer.pages[0], {f"{field_name}": f"{field_value}"}
+        self.writer.update_page_form_field_values(
+            self.writer.pages[0], {f"{field_name}": f"{field_value}"}
         )
 
-        # write "output" to PyPDF2-output.pdf
-        with open(f"{self.new_pdf_name}.pdf", "wb") as output_stream:
-            writer.write(output_stream)
-
     def write_department(self):
-        self.change_field('DEPARTMENT', 'champ')
+        self.change_field('DEPARTMENT', 'Mathematics')
 
     def write_sub_emp_number(self, value):
         self.change_field('#', value)
@@ -90,6 +52,11 @@ class PdfFormFiller:
 
     def write_hours_worked(self, value):
         self.change_field('HOURS WORKED#0', value)
+
+    def write_all_changes(self):
+        # write "output" to PyPDF2-output.pdf
+        with open(f"{self.new_pdf_name}", "wb") as output_stream:
+            self.writer.write(output_stream)
 
     def print_fields(self):
         reader = PdfReader(self.old_pdf_name)
