@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 from ExcelReader import ExcelReader
 
+# pyinstaller --onefile main.py
 
 # main
 root = tk.Tk()
@@ -35,8 +36,8 @@ def calculate_excel_data():
 
 
 # Create labels and entry widgets
-lower_label = tk.Label(root, text="Lower Integer:")
-upper_label = tk.Label(root, text="Upper Integer:")
+lower_label = tk.Label(root, text="Starting Row:")
+upper_label = tk.Label(root, text="Ending Row(inclusive):")
 excel_file_label = tk.Label(root, text="Excel File:")
 pdf_file_label = tk.Label(root, text="Pdf File:")
 lower_entry = tk.Entry(root)

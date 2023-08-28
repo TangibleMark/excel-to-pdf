@@ -22,7 +22,7 @@ class ExcelReader:
                 # write to pdf
                 pdf_filler = PdfFormFiller(
                     self.pdf,
-                    f"REQUEST_FOR_SUPPLEANCE_FORM_{row[3].value}_{index}.pdf"
+                    f'REQUEST_FOR_SUPPLEANCE_FORM_{row[2].value.replace(" ", "_")}_{row[3].value.replace(" ", "_")}_{(str(row[5].value)).split(" ")[0].replace("-","_")}_{index}.pdf'
                 )
 
                 pdf_filler.write_department()
